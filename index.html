@@ -1,133 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>File Converter by Franz0425</title>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      text-align: center;
-      padding: 2rem;
-      margin: 0;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    input[type="file"], select, button {
-      margin: 0.5rem;
-      padding: 0.6rem;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: none;
-    }
-
-    button {
-      background-color: #00c6ff;
-      color: white;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #0072ff;
-    }
-
-    #download-link {
-      display: block;
-      margin-top: 1.5rem;
-      font-weight: bold;
-      color: #00ffea;
-    }
-
-    footer {
-      margin-top: 4rem;
-      font-size: 0.8rem;
-      color: #ccc;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>File Converter</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+  <div class="container">
+    <h1>File Converter</h1>
 
-  <h1>🔄 File Converter</h1>
-  <p>Convert PDF, PNG, JPG, TXT files easily right from your browser.</p>
+    <input type="file" id="fileInput">
+    
+    <select id="formatSelect">
+      <option value="txt">TXT</option>
+      <option value="pdf">PDF</option>
+      <option value="docx">DOCX</option>
+      <option value="jpg">JPG</option>
+      <option value="png">PNG</option>
+    </select>
 
-  <input type="file" id="fileInput" />
-  
-  <select id="formatSelect">
-    <option value="pdf">Convert to PDF</option>
-    <option value="png">Convert to PNG</option>
-    <option value="jpg">Convert to JPG</option>
-    <option value="txt">Convert to TXT</option>
-  </select>
+    <button onclick="convertFile()">Convert</button>
 
-  <button onclick="convertFile()">Convert</button>
+    <div id="result"></div>
+  </div>
 
-  <a id="download-link" style="display:none;" download>Download Converted File</a>
-
-  <footer>
-    Built by Franz0425 • Powered by HTML & JavaScript • Free & Offline
-  </footer>
-
-  <script>
-    function convertFile() {
-      const fileInput = document.getElementById("fileInput");
-      const format = document.getElementById("formatSelect").value;
-      const link = document.getElementById("download-link");
-
-      if (!fileInput.files.length) {
-        alert("Please upload a file first.");
-        return;
-      }
-
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-
-      reader.onload = function (e) {
-        let blob;
-        let filename = file.name.split(".")[0];
-
-        switch (format) {
-          case "txt":
-            blob = new Blob([e.target.result], { type: "text/plain" });
-            filename += ".txt";
-            break;
-          case "pdf":
-            blob = new Blob([e.target.result], { type: "application/pdf" });
-            filename += ".pdf";
-            break;
-          case "png":
-            blob = new Blob([e.target.result], { type: "image/png" });
-            filename += ".png";
-            break;
-          case "jpg":
-            blob = new Blob([e.target.result], { type: "image/jpeg" });
-            filename += ".jpg";
-            break;
-          default:
-            alert("Unsupported format");
-            return;
-        }
-
-        const url = URL.createObjectURL(blob);
-        link.href = url;
-        link.download = filename;
-        link.style.display = "block";
-        link.textContent = "⬇️ Download " + filename;
-      };
-
-      reader.readAsArrayBuffer(file);
-    }
-  </script>
-
+  <!-- ✅ This line is important -->
+  <script src="script.js"></script>
 </body>
 </html>
