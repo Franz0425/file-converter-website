@@ -4,7 +4,7 @@ function convertFile() {
   const resultDiv = document.getElementById('result');
 
   if (!fileInput.files.length) {
-    resultDiv.innerText = 'Please upload a file first.';
+    resultDiv.innerHTML = "<p>⚠️ Please upload a file first.</p>";
     return;
   }
 
@@ -30,10 +30,10 @@ function convertFile() {
         break;
       case 'jpg':
       case 'png':
-        resultDiv.innerText = "❌ Image conversion not supported in-browser.";
+        resultDiv.innerHTML = "<p>❌ Image conversion is not supported in-browser.</p>";
         return;
       default:
-        resultDiv.innerText = "❌ Unsupported format.";
+        resultDiv.innerHTML = "<p>❌ Unsupported format selected.</p>";
         return;
     }
 
@@ -44,10 +44,14 @@ function convertFile() {
     a.textContent = "⬇️ Download Converted File";
     resultDiv.innerHTML = '';
     resultDiv.appendChild(a);
+
+    const tip = document.createElement('p');
+    tip.textContent = "📱 Tip: On mobile, long-press the link and choose 'Download' or 'Save to Files'.";
+    resultDiv.appendChild(tip);
   };
 
   reader.onerror = function () {
-    resultDiv.innerText = "❌ Error reading the file.";
+    resultDiv.innerHTML = "<p>❌ Error reading the file.</p>";
   };
 
   reader.readAsText(file);
