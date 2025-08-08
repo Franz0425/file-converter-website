@@ -21,7 +21,9 @@ function convertFile() {
         blob = new Blob([content], { type: 'text/plain' });
         break;
       case 'docx':
-        blob = new Blob([content], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        blob = new Blob([content], {
+          type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        });
         break;
       case 'pdf':
         blob = new Blob([content], { type: 'application/pdf' });
