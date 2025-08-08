@@ -1,24 +1,90 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>File Converter</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francessa File Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            background: #4a90e2;
+            color: white;
+            padding: 20px 0;
+        }
+        h1 {
+            margin: 0;
+        }
+        .converter {
+            background: white;
+            padding: 30px;
+            margin: 30px auto;
+            border-radius: 10px;
+            max-width: 500px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>File Converter</h1>
+
+<header>
+    <h1>Francessa File Converter</h1>
+    <p>Convert your files instantly and for free</p>
+</header>
+
+<div class="converter">
+    <h2>Upload and Convert</h2>
     <input type="file" id="fileInput">
     <select id="formatSelect">
-      <option value="pdf">PDF</option>
-      <option value="docx">DOCX</option>
-      <option value="txt">TXT</option>
-      <option value="jpg">JPG</option>
-      <option value="png">PNG</option>
+        <option value="pdf">Convert to PDF</option>
+        <option value="docx">Convert to DOCX</option>
+        <option value="jpg">Convert to JPG</option>
+        <option value="png">Convert to PNG</option>
+        <option value="txt">Convert to TXT</option>
     </select>
-    <button onclick="convertFile()">Convert</button>
-    <div id="result"></div>
-  </div>
-  <script src="script.js"></script>
+    <button onclick="convertFile()">Convert File</button>
+</div>
+
+<footer>
+    <p>Made with ♥ by Francessa</p>
+</footer>
+
+<script>
+    function convertFile() {
+        const file = document.getElementById('fileInput').files[0];
+        const format = document.getElementById('formatSelect').value;
+        if (!file) {
+            alert("Please upload a file first.");
+            return;
+        }
+
+        alert("This is a static demo. For real conversion, a backend service or API is needed.");
+    }
+</script>
+
 </body>
 </html>
