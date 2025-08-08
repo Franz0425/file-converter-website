@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>File Converter</h1>
+    <input type="file" id="fileInput">
+    <select id="formatSelect">
+      <option value="pdf">PDF</option>
+      <option value="docx">DOCX</option>
+      <option value="txt">TXT</option>
+      <option value="jpg">JPG</option>
+      <option value="png">PNG</option>
+    </select>
+    <button onclick="convertFile()">Convert</button>
+    <div id="result"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
