@@ -1,90 +1,133 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Francessa File Converter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-        header {
-            background: #4a90e2;
-            color: white;
-            padding: 20px 0;
-        }
-        h1 {
-            margin: 0;
-        }
-        .converter {
-            background: white;
-            padding: 30px;
-            margin: 30px auto;
-            border-radius: 10px;
-            max-width: 500px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        input, select, button {
-            margin: 10px 0;
-            padding: 10px;
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background: #4a90e2;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        footer {
-            margin-top: 50px;
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>File Converter by Franz0425</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    input[type="file"], select, button {
+      margin: 0.5rem;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      background-color: #00c6ff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0072ff;
+    }
+
+    #download-link {
+      display: block;
+      margin-top: 1.5rem;
+      font-weight: bold;
+      color: #00ffea;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.8rem;
+      color: #ccc;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Francessa File Converter</h1>
-    <p>Convert your files instantly and for free</p>
-</header>
+  <h1>🔄 File Converter</h1>
+  <p>Convert PDF, PNG, JPG, TXT files easily right from your browser.</p>
 
-<div class="converter">
-    <h2>Upload and Convert</h2>
-    <input type="file" id="fileInput">
-    <select id="formatSelect">
-        <option value="pdf">Convert to PDF</option>
-        <option value="docx">Convert to DOCX</option>
-        <option value="jpg">Convert to JPG</option>
-        <option value="png">Convert to PNG</option>
-        <option value="txt">Convert to TXT</option>
-    </select>
-    <button onclick="convertFile()">Convert File</button>
-</div>
+  <input type="file" id="fileInput" />
+  
+  <select id="formatSelect">
+    <option value="pdf">Convert to PDF</option>
+    <option value="png">Convert to PNG</option>
+    <option value="jpg">Convert to JPG</option>
+    <option value="txt">Convert to TXT</option>
+  </select>
 
-<footer>
-    <p>Made with ♥ by Francessa</p>
-</footer>
+  <button onclick="convertFile()">Convert</button>
 
-<script>
+  <a id="download-link" style="display:none;" download>Download Converted File</a>
+
+  <footer>
+    Built by Franz0425 • Powered by HTML & JavaScript • Free & Offline
+  </footer>
+
+  <script>
     function convertFile() {
-        const file = document.getElementById('fileInput').files[0];
-        const format = document.getElementById('formatSelect').value;
-        if (!file) {
-            alert("Please upload a file first.");
+      const fileInput = document.getElementById("fileInput");
+      const format = document.getElementById("formatSelect").value;
+      const link = document.getElementById("download-link");
+
+      if (!fileInput.files.length) {
+        alert("Please upload a file first.");
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        let blob;
+        let filename = file.name.split(".")[0];
+
+        switch (format) {
+          case "txt":
+            blob = new Blob([e.target.result], { type: "text/plain" });
+            filename += ".txt";
+            break;
+          case "pdf":
+            blob = new Blob([e.target.result], { type: "application/pdf" });
+            filename += ".pdf";
+            break;
+          case "png":
+            blob = new Blob([e.target.result], { type: "image/png" });
+            filename += ".png";
+            break;
+          case "jpg":
+            blob = new Blob([e.target.result], { type: "image/jpeg" });
+            filename += ".jpg";
+            break;
+          default:
+            alert("Unsupported format");
             return;
         }
 
-        alert("This is a static demo. For real conversion, a backend service or API is needed.");
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = filename;
+        link.style.display = "block";
+        link.textContent = "⬇️ Download " + filename;
+      };
+
+      reader.readAsArrayBuffer(file);
     }
-</script>
+  </script>
 
 </body>
 </html>
